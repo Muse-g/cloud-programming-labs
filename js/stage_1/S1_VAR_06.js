@@ -10,3 +10,4 @@ console.log(classifyNumberLike(0)); // "number"
 console.log(classifyNumberLike("0")); // "not-a-number"
 console.log(classifyNumberLike("abc")); // "not-a-number"
 console.log(classifyNumberLike(undefined)); // "not-a-number"
+//CHECKING ALL POSIBLE OUTCOMES FOR NAN

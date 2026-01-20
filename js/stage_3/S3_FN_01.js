@@ -11,3 +11,4 @@ console.log(square(5)); // 25
 console.log(isOdd(5)); // true
 console.log(isOdd(4)); // false
 console.log(greet("Ala")); // "Hello Ala"
+// added this comment to re order the sequence on the commit history

@@ -1,0 +1,276 @@
+Python — Online Exercises (9 Tasks)
+Target: beginner-to-early-intermediate Python with modern features (recommended Python 3.10+).
+Format: 9 tasks: 0, 1, 1B, 1C, 2, 2B, 3A, 3B, 3C. Each task contains multiple subtasks (exercises).
+
+How to work
+Choose one environment: Replit (Python), Google Colab, PythonAnywhere, or another online Python editor.
+Version requirement: for Task 1C (match/case) you need Python 3.10+. If your editor is older, you must implement the same logic using if/elif/else and explain that in a comment.
+Create one file per subtask (recommended). Name files exactly like the exercise IDs (e.g., S1_VAR_01.py).
+For each exercise: write code + run it + show output (or use assert tests).
+Submission
+Option A (preferred): submit a single link to your online project (public/share link).
+Option B: submit a GitHub repository link (e.g., one folder per task).
+Option C: upload a ZIP with all .py files.
+Minimum quality bar: your code must run from a clean start without manual edits.
+
+TASK0 — Setup and workflow
+Goal: make sure your environment works, and your submission format is consistent.
+
+Subtasks
+S0_SETUP_01 — Create a new Python project and print something
+Create index.py with print("It works").
+Run it and confirm you see output.
+Change the message and run again.
+S0_SETUP_02 — File structure
+Create folders: stage1/, stage2/, stage3/ (or keep all in one folder if your editor is limited).
+Create empty files for upcoming tasks (e.g., S1_VAR_01.py).
+S0_SETUP_03 — Minimal test helper (optional)
+Create a tiny helper function eq(actual, expected) that raises on mismatch.
+Use it in at least one later task.
+# index.py
+def main():
+    print("It works")
+
+if __name__ == "__main__":
+    main()
+TASK1 — Variables and runtime types
+Goal: understand Python’s dynamic typing, built-in types, truthiness, mutability, and safe conversions.
+
+Subtasks (10 exercises)
+S1_VAR_01 — Catalog of values and type()
+Create variables: int, float, str, bool, None, list, tuple, dict, set, function.
+Print a table: name, value, type(x), and type(x).__name__.
+S1_VAR_02 — Rebinding and dynamic typing
+Use one variable name x and reassign it to values of 4 different types.
+After each assignment, print the value and type(x).__name__.
+Write one comment about what “dynamic typing” means in practice.
+S1_VAR_03 — Mutability: list vs tuple
+Create lst = [1,2,3] and modify one element.
+Create tup = (1,2,3) and try to modify one element (use try/except and print the exception).
+Explain (1–2 lines) why one works and the other doesn’t.
+S1_VAR_04 — Identity vs equality (is vs ==)
+Create examples showing == and is can differ.
+Required: demonstrate correct use of is None.
+Add a comment: “Use is for identity, == for equality.”
+S1_VAR_05 — Truthiness
+Write is_truthy(v) returning bool(v).
+Test with: 0, 1, "", "0", [], [0], {}, None.
+Print results in a readable form.
+S1_VAR_06 — Safe conversion: int() / float()
+Implement to_int_or_none(s) using try/except.
+Test with: "12", " 12 ", "12x", "", None (handle None safely).
+S1_VAR_07 — NaN and math.isnan
+Create nan1 = float("nan") and nan2 = 0.0/0.0 (catch ZeroDivisionError; then use float("nan") as fallback).
+Use math.isnan to detect NaN.
+Print: NaN comparisons (nan == nan), and the isnan results.
+S1_VAR_08 — Big integers (no MAX_SAFE_INTEGER problem)
+Compute a large integer, e.g. 10**100, and print its type and number of digits.
+Compare with a large float (e.g., float(10**100)) and comment on precision.
+S1_VAR_09 — Type hints are not runtime enforcement
+Write def add(a: int, b: int) -> int: and return a + b.
+Call it with strings and observe what happens.
+Write one comment: type hints are for tooling/readability, not automatic runtime checks.
+S1_VAR_10 — Mini inspector
+Implement inspect(v) returning a dict with: type_name, is_none, is_callable, is_iterable (hint: try iter(v) in try/except), truthy.
+Run on at least 10 values and pretty-print the results.
+TASK1B — if/elif/else: validation and branching
+Goal: implement practical branching logic with input validation and clear conditions.
+
+Subtasks (3 exercises)
+S1_IF_01 — Shipping cost
+Implement shipping_cost(weight_kg, is_member).
+Rules: invalid weight (not a number or <=0) → return None; <=1kg → 10; <=5kg → 20; else → 30.
+Members get 20% discount.
+Print at least 6 tests, including boundary values.
+S1_IF_02 — Score to grade
+Implement grade(score) for 0..100 else None.
+A: 90–100, B: 80–89, C: 70–79, D: 60–69, F: 0–59.
+Print boundary tests (59, 60, 69, 70, 89, 90, 100, 101).
+S1_IF_03 — Normalize user name
+Implement normalize_name(x).
+If x is falsy → return "Anonymous".
+Else return x.strip(), but if it becomes empty → "Anonymous".
+Test with: "", " ", None, " Ola ".
+TASK1C — match/case: dispatching (Python 3.10+)
+Goal: use structural pattern matching as a “switch-like” construct, with safe defaults.
+
+Subtasks (3 exercises)
+S1_MC_01 — Day name
+Implement day_name(n) using match n: with literal patterns case 1: ...
+Map 1..7 to Monday..Sunday.
+Default (case _:) returns None.
+S1_MC_02 — Command router
+Implement run_command(cmd) using match cmd: with string literals.
+Supported: "start", "stop", "status". Default returns "UNKNOWN_COMMAND".
+S1_MC_03 — Simple calculator
+Implement calc(a, op, b) where op is "+", "-", "*", "/". Use match.
+Validate numbers; division by zero returns None.
+# Example skeleton:
+def day_name(n: int):
+    match n:
+        case 1: return "Monday"
+        case 2: return "Tuesday"
+        case 3: return "Wednesday"
+        case 4: return "Thursday"
+        case 5: return "Friday"
+        case 6: return "Saturday"
+        case 7: return "Sunday"
+        case _: return None
+TASK2 — Lists: cleaning, transforming, aggregating
+Goal: do real list processing with constraints (sometimes “no set”, sometimes “no built-ins”), and show results clearly.
+
+Subtasks (6 exercises)
+S2_LIST_01 — Clean number strings
+Implement clean_numbers(values) where values is a list of strings.
+Trim each string; convert to float; drop items that fail conversion.
+Example: [" 1 ", "x", "2"] → [1.0, 2.0]
+S2_LIST_02 — Deduplicate without set
+Implement unique(values) returning a new list with duplicates removed.
+Preserve first occurrence order.
+Do not use set() for this exercise.
+S2_LIST_03 — Chunk a list
+Implement chunk(lst, size) returning a list of lists, each of length size (last chunk may be shorter).
+If size <= 0, return None.
+S2_LIST_04 — Flatten one level
+Implement flatten1(lst) where elements may be items or lists of items.
+Flatten exactly one level (do not recursively flatten).
+Do not use itertools.chain.from_iterable here (do it manually for practice).
+S2_LIST_05 — Stats
+Implement stats(nums) returning a dict: { "min": ..., "max": ..., "avg": ..., "sum": ... }.
+Empty list returns None.
+Print tests including negative numbers.
+S2_LIST_06 — Transform records
+Given users = [{"id":..., "name":..., "active":...}, ...], return names of active users, uppercased, sorted A→Z.
+Prefer list comprehensions + sorted().
+TASK2B — Loops: scanning, early stop, nested iteration
+Goal: implement classic algorithms explicitly using loops (no “magic” built-ins where forbidden).
+
+Subtasks (6 exercises)
+S2_FOR_01 — FizzBuzz+
+Print 1..N (use N=30).
+Multiples of 3: "Fizz", of 5: "Buzz", of both: "FizzBuzz".
+Use a for loop.
+S2_FOR_02 — Find first even
+Implement find_first_even(nums) using a loop (do not use next() with a generator).
+Return the first even number or None.
+S2_FOR_03 — Sum until threshold
+Implement sum_until(nums, threshold): sum in order until adding the next item would exceed threshold; then stop.
+Return the final sum.
+S2_FOR_04 — Count occurrences (histogram)
+Implement count_occurrences(values) returning a dict of counts.
+Do it with a loop (no Counter for this exercise).
+S2_FOR_05 — Multiplication table 10×10
+Print a 10×10 multiplication table (1..10) using nested loops.
+Optional: align columns for readability.
+S2_FOR_06 — Sum nested lists (matrix)
+Implement sum_nested(matrix) where matrix is a list of lists of numbers.
+Validate each row is a list; otherwise return None.
+TASK3A — Dictionaries: operations and iteration
+Goal: treat dicts as core data structures: safe reads, merges, selection, inversion, grouping.
+
+Subtasks (6 exercises)
+S3_DICT_01 — Safe get by dotted path
+Implement get_path(obj, path, fallback) where path is like "a.b.c".
+If any step is missing or not a dict, return fallback.
+S3_DICT_02 — Merge defaults (shallow)
+Implement merge_defaults(defaults, overrides) returning a new dict.
+Overrides win for overlapping keys.
+Prefer {**defaults, **overrides} or (Python 3.9+) defaults | overrides.
+Show one test illustrating why this is a shallow merge.
+S3_DICT_03 — Pick keys
+Implement pick(d, keys) returning a new dict with only those keys that exist.
+S3_DICT_04 — Omit keys
+Implement omit(d, keys) returning a new dict without those keys.
+S3_DICT_05 — Invert with collisions
+Implement invert(d) swapping keys and values.
+If values collide, store a list of keys under that value.
+S3_DICT_06 — Group by property
+Implement group_by(items, key) where items is a list of dicts and key is a property name.
+Return dict: value → list of items.
+TASK3B — Lambda functions: callbacks and higher-order functions
+Goal: use lambdas appropriately (short expressions), and combine them with built-ins like sorted, map, filter, and reduce.
+
+Subtasks (6 exercises)
+S3_LAM_01 — Convert to lambdas
+Write lambdas for: square(n), is_odd(n), greet(name).
+Show 3 tests per lambda.
+S3_LAM_02 — Sort by key
+Given people = [{"name":..., "age":...}, ...], sort by age ascending.
+Use sorted(..., key=lambda p: p["age"]).
+Print before/after.
+S3_LAM_03 — Closure factory
+Implement make_adder(x) returning a lambda that adds x.
+Create add10 and add3 and test them.
+S3_LAM_04 — Sum of squares of even numbers
+Given nums, compute sum of squares of even numbers.
+Use filter, map, and functools.reduce (or sum).
+Print intermediate results.
+S3_LAM_05 — Higher-order predicate
+Implement at_least(min_value) returning a lambda predicate.
+Use it with filter on a list.
+S3_LAM_06 — Map values in a dict
+Implement map_values(d, fn) returning a new dict with transformed values.
+Use dict comprehension: {k: fn(v) for k, v in d.items()}.
+TASK3C — Pipelines: composition + iterator pipelines
+Goal: build predictable linear processing (pipe/compose), and apply it to strings, lists, and log parsing. Use iterators to avoid unnecessary memory use when appropriate.
+
+Subtasks (6 exercises)
+S3_PIPE_01 — Implement pipe(*fns)
+Return a function that applies unary functions left-to-right.
+Example: pipe(f, g, h)(x) == h(g(f(x))).
+Test with numeric transforms.
+S3_PIPE_02 — Implement compose(*fns)
+Return a function that applies unary functions right-to-left.
+Compare results of pipe vs compose using the same functions.
+S3_PIPE_03 — String normalization pipeline
+Build a pipeline: strip → lowercase → collapse multiple spaces.
+Apply to: " Ala Ma Kota " and print output.
+S3_PIPE_04 — Iterable pipeline (generator-based)
+Input: list of strings with numbers and junk.
+Pipeline: strip → convert to float (skip failures) → double → sum.
+Implement conversion as a generator so you can process large inputs.
+S3_PIPE_05 — Log line pipeline (parse → filter → extract)
+Given lines like "INFO: user=42 action=login", parse to dicts.
+Filter only INFO entries.
+Extract user ids as ints; drop invalid.
+Return the list of user ids.
+S3_PIPE_06 — Safe pipeline (pipe_safe)
+Implement pipe_safe(*fns): if any function raises, return {"ok": False, "error": "..."}.
+If all succeed, return {"ok": True, "value": result}.
+Test with one function that raises on bad input.
+Optional bonus (standard library)
+Read about itertools and implement one extra pipeline using itertools.islice or itertools.groupby.
+Write 5–10 lines explaining why iterator pipelines can be more memory-efficient.
+Resources (URLs)
+All resources are provided as plain text with URLs. Start with official Python docs and PEPs, then use optional practice sources.
+
+PRIMARY (OFFICIAL) PYTHON SOURCES
+- Python docs (current): https://docs.python.org/3/
+- Python Tutorial: https://docs.python.org/3/tutorial/
+- Control flow (if/for/while, match statement): https://docs.python.org/3/tutorial/controlflow.html
+- Data Structures (lists, list comprehensions): https://docs.python.org/3/tutorial/datastructures.html
+- Built-in types: https://docs.python.org/3/library/stdtypes.html
+- Built-in functions (type, isinstance, sorted, etc.): https://docs.python.org/3/library/functions.html
+- itertools (iterator “algebra” for pipelines): https://docs.python.org/3/library/itertools.html
+- functools (higher-order functions, reduce): https://docs.python.org/3/library/functools.html
+- What’s New in Python 3.10 (match/case): https://docs.python.org/3/whatsnew/3.10.html
+- PEP 634 (pattern matching specification): https://peps.python.org/pep-0634/
+- PEP 636 (pattern matching tutorial): https://peps.python.org/pep-0636/
+- PEP 8 (style guide): https://peps.python.org/pep-0008/
+- PEP 584 (dict union operators | and |=): https://peps.python.org/pep-0584/
+
+ONLINE EDITORS (PYTHON IN BROWSER)
+- Replit (Python): https://replit.com/languages/python3
+- Google Colab: https://colab.research.google.com/
+- PythonAnywhere (beginner-friendly): https://www.pythonanywhere.com/
+- Programiz Python Online Compiler: https://www.programiz.com/python-programming/online-compiler/
+
+CODEWARS (OPTIONAL EXTRA PRACTICE)
+- Python katas search (filter by “Fundamentals”): https://www.codewars.com/kata/search/python?q=&r%5B%5D=-8&r%5B%5D=-7&r%5B%5D=-6
+- “List Filtering” kata (Python version available): https://www.codewars.com/kata/53dbd5315a3c69eed20002dd
+- “Count the Digit” (loops/strings): https://www.codewars.com/kata/566fc12495810954b1000030
+
+REDDIT (OPTIONAL DISCUSSION-DRIVEN PITFALLS)
+- “Mutable default arguments” discussion: https://www.reddit.com/r/learnpython/search/?q=mutable%20default%20arguments&restrict_sr=1
+- “is vs ==” discussion: https://www.reddit.com/r/learnpython/search/?q=is%20vs%20==&restrict_sr=1
+- Structural pattern matching discussions: https://www.reddit.com/r/Python/search/?q=match%20case%20pattern%20matching&restrict_sr=1
